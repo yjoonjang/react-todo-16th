@@ -18,7 +18,7 @@ const DoneContainer = styled.div`
 const DoneContent = ({doneText, onDeleteButtonClick, onErrorButtonClick}) => {
   return (
     <DoneContainer>
-      <span>
+      <span className='done-text'>
         {doneText || 'hi'}
       </span>
       <div className='button-wrapper'>

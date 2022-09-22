@@ -6,39 +6,62 @@ import DoneContent from "../components/doneContent";
 function App() {
   const [todoCount, setTodoCount] = useState(0);
   const [doneCount, setDoneCount] = useState(0);
-  const [todoList, setTodoList] = useState([]);
+  let [todoList, setTodoList] = useState([]);
   const [doneList, setDoneList] = useState([]);
 
-  const itemsInTodoLocalStorage = JSON.parse(localStorage.getItem('todo-list'));
-  if (todoList.length === 0) {
-    setTodoList(...todoList, itemsInTodoLocalStorage)
-  }
-
-  console.log(todoList);
-  const updateInLocalStorage = (type, todoInfo) => {
-    const item = localStorage.getItem(`${type}`)
-    const info = {
-      ...JSON.parse(item),
-      ...todoInfo
+  useEffect(() => {
+    if (todoList.length !== 0) {
+      localStorage.setItem('todo-list', JSON.stringify(todoList))
     }
-    localStorage.setItem(`${type}`, info)
+    if (todoList && todoList.length === 0) {
+      let tempArray = [];
+      const itemsInTodoLocalStorage = JSON.parse(localStorage.getItem('todo-list'));
+      itemsInTodoLocalStorage.forEach((item) => {
+        tempArray = [...tempArray, item]
+      })
+      setTodoList(tempArray)
+    }
+  },[todoList])
+
+  // const itemsInTodoLocalStorage = localStorage.getItem('todo-list');
+  // if (todoList && todoList.length === 0) {
+  //   setTodoList(...todoList, JSON.parse(itemsInTodoLocalStorage));
+  // }
+
+
+
+  const updateInLocalStorage = (type, todoInfo) => {
+    // const item = JSON.parse(localStorage.getItem(`${type}`));
+    const info = {
+      ...JSON.parse(localStorage.getItem(`${type}`)),
+      ...todoInfo,
+    }
+    console.log(info);
+    localStorage.setItem(`${type}`, JSON.stringify(info));
   }
 
   const onEnterKeyPress = (event) => {
     let todoText = event.target.value;
 
     if (event.key === 'Enter') {
+      if (todoList.includes(todoText)) {
+        alert('이미 존재하는 항목입니다.')
+      }
       let todoId = new Date().getTime();
       const todoInfo = {
         todoText: todoText,
         todoId: todoId,
       }
       setTodoList([...todoList, todoInfo])
-      updateInLocalStorage('todo-list', todoInfo)
+      updateInLocalStorage('todo-list', todoInfo);
       event.target.value = '';
 
     }
   }
+
+  // const onCheckButtonClick = () => {
+
+  // }
 
   return (
     <>
@@ -46,13 +69,13 @@ function App() {
         <ItemWrapper>
           <h1>TODO LIST!</h1>
           <TodoInput onKeyDown={onEnterKeyPress} placeholder="할 일을 적어주세요."/>
-          <h1>TODO ({todoList.length})</h1>
+          <h1>TODO ({todoList ? todoList.length : '0'})</h1>
           <ListContainer borderColor='#FF5A00'>
-            {todoList.map((todoInfo) => {
-              return <TodoContent todoText={todoInfo.todoText} />
-            })}
+            {todoList && todoList.length > 0 ? (todoList.map((todoInfo) => {
+              return <TodoContent key={todoInfo.todoId} todoText={todoInfo.todoText} />
+            })) : <></>}
           </ListContainer>
-          <h1>Done ({doneCount})</h1>
+          <h1>Done ({doneList ? doneList.length : '0'})</h1>
           <ListContainer borderColor='#0B70FE'>
             <DoneContent />
           </ListContainer>
