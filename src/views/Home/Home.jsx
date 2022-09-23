@@ -1,9 +1,9 @@
-import { ItemContainer, ItemWrapper, TodoInput, ListContainer } from "../styles/App.styled.jsx";
+import { ItemContainer, ItemWrapper, TodoInput, ListContainer } from "./Home.styled.jsx";
 import { useEffect, useState } from "react";
-import TodoContent from "../components/todoContent";
-import DoneContent from "../components/doneContent";
+import TodoContent from "../../components/todoContent";
+import DoneContent from "../../components/doneContent";
 
-function App() {
+const Home = () => {
   const [todoList, setTodoList] = useState([]);
   const [doneList, setDoneList] = useState([]);
  
@@ -154,4 +154,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
