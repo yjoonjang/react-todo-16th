@@ -89,7 +89,7 @@ function App() {
     setTodoList(todoTempList);
     setDoneList(doneTempList);
     localStorage.setItem('todo-list', JSON.stringify(todoTempList));
-    localStorage.setItem('done-list', doneTempList);
+    localStorage.setItem('done-list', JSON.stringify(doneTempList));
   }
 
   const onDeleteButtonClick = (e, type) => {
