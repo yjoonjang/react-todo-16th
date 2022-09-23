@@ -2,9 +2,10 @@ import styled from 'styled-components';
 
 export const ItemContainer = styled.div`
   display: flex;
+  height: 100vh;
   justify-content: center;
+  padding: 4px;
   align-items: center;
-  height: 100%;
 `
 
 export const ItemWrapper = styled.div`
@@ -16,14 +17,16 @@ export const ItemWrapper = styled.div`
   padding: 20px;
   border: 2px solid #111;
   border-radius: 4px;
+  height: 95vh;
 `
 
 export const TodoInput = styled.input`
   width: 400px;
-  height: 28px;
+  height: 32px;
+  font-size: 16px;
   border: 2px solid #111;
   border-radius: 4px;
-  padding: 4px 4px 4px 8px;
+  padding: 8px;
 `
 
 export const ListContainer = styled.div.attrs((props) => ({

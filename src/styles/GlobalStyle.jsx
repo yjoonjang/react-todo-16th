@@ -1,11 +1,16 @@
 import { createGlobalStyle } from "styled-components";
 import normalize from "styled-normalize";
+import '../styles/font.css'
 
 const GlobalStyle = createGlobalStyle`
   ${normalize}
 
+  * {
+    box-sizing: border-box;
+  }
+
   body {
-    font-family: Montserrat, sans-serif;
+    font-family: SCoreMontserrat;
     line-height: 1.5;
   }
 

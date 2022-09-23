@@ -1,4 +1,4 @@
-import { ItemContainer, ItemWrapper, TodoInput, ListContainer } from "./App.styled";
+import { ItemContainer, ItemWrapper, TodoInput, ListContainer } from "../styles/App.styled.jsx";
 import { useEffect, useState } from "react";
 import TodoContent from "../components/todoContent";
 import DoneContent from "../components/doneContent";
