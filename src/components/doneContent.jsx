@@ -15,15 +15,15 @@ const DoneContainer = styled.div`
   }
 `
 
-const DoneContent = ({doneText, onDeleteButtonClick, onErrorButtonClick}) => {
+const DoneContent = ({className, doneText, onDeleteButtonClick, onErrorButtonClick}) => {
   return (
     <DoneContainer>
       <span className='done-text'>
         {doneText || 'hi'}
       </span>
       <div className='button-wrapper'>
-        <DeleteButton onClick={onDeleteButtonClick} />
-        <ErrorButton onClick={onErrorButtonClick} />
+        <ErrorButton className={className} onClick={onErrorButtonClick} />
+        <DeleteButton className={className} onClick={onDeleteButtonClick} />
       </div>
     </DoneContainer>
   );
@@ -32,6 +32,7 @@ const DoneContent = ({doneText, onDeleteButtonClick, onErrorButtonClick}) => {
 export default DoneContent;
 
 DoneContent.propTypes = {
+  className: PropTypes.number,
   doneText: PropTypes.string,
   onDeleteButtonClick: PropTypes.func,
   onErrorButtonClick: PropTypes.func,

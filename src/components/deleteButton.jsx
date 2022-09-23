@@ -21,5 +21,6 @@ const DeleteButton = ({onClick, className}) => {
 export default DeleteButton;
 
 DeleteButton.propTypes = {
+  className: PropTypes.number,
   onClick: PropTypes.func
 }
