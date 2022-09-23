@@ -4,39 +4,33 @@ import TodoContent from "../components/todoContent";
 import DoneContent from "../components/doneContent";
 
 function App() {
-  const [todoCount, setTodoCount] = useState(0);
-  const [doneCount, setDoneCount] = useState(0);
-  let [todoList, setTodoList] = useState([]);
+  const [todoList, setTodoList] = useState([]);
   const [doneList, setDoneList] = useState([]);
 
   useEffect(() => {
     if (todoList.length !== 0) {
       localStorage.setItem('todo-list', JSON.stringify(todoList))
     }
-    if (todoList && todoList.length === 0) {
+    else if (todoList.length === 0) {
       let tempArray = [];
       const itemsInTodoLocalStorage = JSON.parse(localStorage.getItem('todo-list'));
-      itemsInTodoLocalStorage.forEach((item) => {
-        tempArray = [...tempArray, item]
-      })
-      setTodoList(tempArray)
+      if (itemsInTodoLocalStorage && itemsInTodoLocalStorage.length > 1) {
+        itemsInTodoLocalStorage.forEach((item) => {
+          tempArray = [...tempArray, item]
+        })
+        setTodoList(tempArray);
+      }
+      else {
+        localStorage.removeItem('todo-list')
+      }
     }
   },[todoList])
 
-  // const itemsInTodoLocalStorage = localStorage.getItem('todo-list');
-  // if (todoList && todoList.length === 0) {
-  //   setTodoList(...todoList, JSON.parse(itemsInTodoLocalStorage));
-  // }
-
-
-
   const updateInLocalStorage = (type, todoInfo) => {
-    // const item = JSON.parse(localStorage.getItem(`${type}`));
     const info = {
       ...JSON.parse(localStorage.getItem(`${type}`)),
       ...todoInfo,
     }
-    console.log(info);
     localStorage.setItem(`${type}`, JSON.stringify(info));
   }
 
@@ -63,6 +57,13 @@ function App() {
 
   // }
 
+  const onTodoDeleteButtonClick = (e) => {
+    const id = e.target.className.baseVal;
+    let tempList = todoList;
+    tempList = todoList.filter((item) => JSON.stringify(item.todoId) !== id);
+    setTodoList(tempList);
+  }
+
   return (
     <>
       <ItemContainer>
@@ -72,7 +73,7 @@ function App() {
           <h1>TODO ({todoList ? todoList.length : '0'})</h1>
           <ListContainer borderColor='#FF5A00'>
             {todoList && todoList.length > 0 ? (todoList.map((todoInfo) => {
-              return <TodoContent key={todoInfo.todoId} todoText={todoInfo.todoText} />
+              return <TodoContent className={todoInfo.todoId} key={todoInfo.todoId} todoText={todoInfo.todoText} onDeleteButtonClick={onTodoDeleteButtonClick} />
             })) : <></>}
           </ListContainer>
           <h1>Done ({doneList ? doneList.length : '0'})</h1>

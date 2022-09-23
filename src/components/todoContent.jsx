@@ -16,15 +16,15 @@ const TodoContainer = styled.div`
   }
 `
 
-const TodoContent = ({todoText, onCheckButtonClick, onDeleteButtonClick}) => {
+const TodoContent = ({className, todoText, onCheckButtonClick, onDeleteButtonClick}) => {
   return (
-    <TodoContainer>
+    <TodoContainer >
       <span>
         {todoText || 'hi'}
       </span>
       <div className='button-wrapper'>
-        <CheckButton onClick={onCheckButtonClick} />
-        <DeleteButton onClick={onDeleteButtonClick}/>
+        <CheckButton className={className} onClick={onCheckButtonClick} />
+        <DeleteButton className={className} onClick={onDeleteButtonClick}/>
       </div>
     </TodoContainer>
   );
@@ -33,6 +33,7 @@ const TodoContent = ({todoText, onCheckButtonClick, onDeleteButtonClick}) => {
 export default TodoContent;
 
 TodoContent.propTypes = {
+  className: PropTypes.number,
   todoText: PropTypes.string,
   onCheckButtonClick: PropTypes.func,
   onDeleteButtonClick: PropTypes.func,
